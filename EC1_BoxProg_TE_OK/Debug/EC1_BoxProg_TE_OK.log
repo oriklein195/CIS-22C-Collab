@@ -1,0 +1,24 @@
+﻿Build started 4/8/2016 12:13:53 PM.
+     1>Project "\\puma\home\oklein291\Visual Studio 2013\Projects\EC1_BoxProg_TE_OK\EC1_BoxProg_TE_OK\EC1_BoxProg_TE_OK.vcxproj" on node 2 (Build target(s)).
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt EC1_BoxProg_TE_OK.cpp MagicBox.cpp PlainBox.cpp ToyBox.cpp
+         EC1_BoxProg_TE_OK.cpp
+     1>\\puma\home\oklein291\visual studio 2013\projects\ec1_boxprog_te_ok\ec1_boxprog_te_ok\ec1_boxprog_te_ok.cpp(13): warning C4101: 'tricks' : unreferenced local variable
+         Generating Code...
+         Compiling...
+         ToyBox.cpp
+         PlainBox.cpp
+         MagicBox.cpp
+         Generating Code...
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"\\puma\home\oklein291\Visual Studio 2013\Projects\EC1_BoxProg_TE_OK\Debug\EC1_BoxProg_TE_OK.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"\\puma\home\oklein291\Visual Studio 2013\Projects\EC1_BoxProg_TE_OK\Debug\EC1_BoxProg_TE_OK.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"\\puma\home\oklein291\Visual Studio 2013\Projects\EC1_BoxProg_TE_OK\Debug\EC1_BoxProg_TE_OK.lib" /MACHINE:X86 Debug\EC1_BoxProg_TE_OK.obj
+         Debug\MagicBox.obj
+         Debug\PlainBox.obj
+         Debug\ToyBox.obj
+     1>EC1_BoxProg_TE_OK.obj : error LNK2019: unresolved external symbol "public: __thiscall ToyBox<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > >::ToyBox<class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > >(class std::basic_string<char,struct std::char_traits<char>,class std::allocator<char> > const &,enum Color const &)" (??0?$ToyBox@V?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@@@QAE@ABV?$basic_string@DU?$char_traits@D@std@@V?$allocator@D@2@@std@@ABW4Color@@@Z) referenced in function _main
+     1>\\puma\home\oklein291\Visual Studio 2013\Projects\EC1_BoxProg_TE_OK\Debug\EC1_BoxProg_TE_OK.exe : fatal error LNK1120: 1 unresolved externals
+     1>Done Building Project "\\puma\home\oklein291\Visual Studio 2013\Projects\EC1_BoxProg_TE_OK\EC1_BoxProg_TE_OK\EC1_BoxProg_TE_OK.vcxproj" (Build target(s)) -- FAILED.
+
+Build FAILED.
+
+Time Elapsed 00:00:01.14
