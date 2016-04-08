@@ -6,7 +6,7 @@
 #include "MagicBox.h"
 #include "PlainBox.h"
 using namespace std;
-
+//swag
 int main(){
 
 	BoxInterface<string> *toys = new ToyBox<string>("buzz", BLACK);
