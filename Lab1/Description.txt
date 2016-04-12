@@ -1,0 +1,20 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1348\cocoasubrtf170
+{\fonttbl\f0\fnil\fcharset0 HelveticaNeue;}
+{\colortbl;\red255\green255\blue255;\red38\green38\blue38;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\deftab720
+\pard\pardeftab720\sl400\sa200
+
+\f0\b\fs28 \cf2 \expnd0\expndtw0\kerning0
+This should be done in Visual Studio or properly changed into a Visual Studio format before submitting.
+\b0 \expnd0\expndtw0\kerning0
+\
+Create a currency class (and any derived classes you may need for up to 5 individual currencies) with four attributes - currency name, whole parts and fractional parts and fractional's name such that 100 fractional parts equals 1 whole part, e.g. Pound, 1, 55, pence or Euro, 3, 33, cent.\'a0\
+Define overloaded operators to add or subtract different currency objects - care should be taken that you can only perform these operation on objects of the same currency. Also, take care that fractional parts roll into whole parts.\
+Define an overloaded input stream operator to accept values of any currency as well as an overloaded output stream operator to write out the value of the currency..\
+Initialize your currency objects demonstrating polymorphic construction.\'a0 Your constructors should also use initialization lists.\
+Define a Wallet class that will contain the 5 individual currency types you define and will implement the following - number of individual currency types, check if a currency type exists in the wallet, add money by currency, remove money by currency, remove all currencies, check if wallet is empty.\
+To add or remove money into/from wallet, check if currency exists in the wallet.\'a0 If so, add or remove the amount specified.\
+Your main should allow the user to add a maximum of 5 different currency types to the wallet in the form of the base currency array - some examples are Dollar and cent, Euro and cent, Pound and pence, Ruble and kopeck.\'a0 Then use a random number generator to add and remove currency values between 0 and 99 for both the whole and fractional values. \'a0You can think about using ENUMs for the currency types to be generated. \'a0Finally, output the total value and name of the currencies in your wallet.\'a0 Finally empty the wallet and print relevant information about the operation.\
+Make any relevant assumptions that you may need but state them clearly in your name/comment block at the top.\'a0 Remember to document your methods adequately as well as any other relevant comments. \'a0This program will need individual definition and implementation files for the currency and wallet classes and a file for your main, though you may combine various currencies into the same set of files. \'a0\
+}
