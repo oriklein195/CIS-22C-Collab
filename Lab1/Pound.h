@@ -5,13 +5,11 @@ using namespace std;
 
 class Pound : public Currency{
 public:
-	Pound(){
-		Currency();
+	Pound():Currency(){
 		wholeName = "Pounds";
 		fracName = "Pence";
 	}
-	Pound(int w, int f){
-		Currency(w, f);
+	Pound(int w, int f):Currency(w, f){
 		wholeName = "Pounds";
 		fracName = "Pence";
 	}
