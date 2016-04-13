@@ -5,13 +5,11 @@ using namespace std;
 
 class Yen : public Currency{
 public:
-	Yen(){
-		Currency();
+	Yen():Currency(){
 		wholeName = "Yen";
 		fracName = "Sen";
 	}
-	Yen(int w, int f){
-		Currency(w, f);
+	Yen(int w, int f):Currency(w, f){
 		wholeName = "Yen";
 		fracName = "Sen";
 	}
