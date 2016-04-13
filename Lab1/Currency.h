@@ -11,11 +11,11 @@ protected:
 public:
   Currency();
   Currency(int w, int f);
-  Currency operator+(Currency& other);
-  Currency operator-(Currency& other);
-  istream& operator>>(istream& is);
-  ostream& operator<<(ostream& os);
-  double getValue() const;
+  virtual friend Currency operator+(const Currency& first, const Currency& other);
+  virtual friend Currency operator-(const Currency& first, const Currency& other);
+  friend istream& operator>> (istream& is, Currency& c);
+  friend ostream& operator<<(ostream& os, const Currency& c);
+  virtual double getValue() const;
 };
 
 
