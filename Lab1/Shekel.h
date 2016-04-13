@@ -5,13 +5,11 @@ using namespace std;
 
 class Shekel : public Currency{
 public:
-	Shekel(){
-		Currency();
+	Shekel():Currency(){
 		wholeName = "Shekel";
 		fracName = "Agorot";
 	}
-	Shekel(int w, int f){
-		Currency(w, f);
+	Shekel(int w, int f):Currency(w, f){
 		wholeName = "Shekel";
 		fracName = "Agorot";
 	}
