@@ -2,7 +2,9 @@
 using namespace std;
 #ifndef POUND_H
 #define POUND_H
-
+/**
+ * Creates a Pound class that is derived from Currency.
+ */
 class Pound : public Currency{
 public:
 	Pound() :Currency(){
