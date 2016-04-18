@@ -2,7 +2,9 @@
 using namespace std;
 #ifndef EURO_H
 #define EURO_H
-
+/**
+ * Creates a Euro class that is derived from Currency.
+ */
 class Euro : public Currency{
 public:
 	Euro() :Currency(){
