@@ -5,7 +5,16 @@
 #include <string>
 #include <time.h>
 using namespace std;
-
+/**
+ * Author: Ori Klein and Tomer Erlich
+ * Date: April 15, 2016
+ * Description:
+ * The main method includes the logic as we understand it from the assignment:
+ * A Currency can't be negative
+ * The overriden + operator may take two derived classes of currency but will rtuern the base class
+ * The >>, -, isEmpty, and other methods not used in main should have never been tested.
+ * We do not need to state which values we are adding before we are adding them.
+*/
 int main(){
 	Wallet user = Wallet();
 	srand(time(NULL));
