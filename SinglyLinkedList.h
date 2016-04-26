@@ -15,9 +15,9 @@ public:
 		head = nullptr;
 		rear = nullptr;
 	}
-	void addFirst(ADTNode* node){
-		node->next = head;
-		head = node;
+	void addFirst(ADTNode* newNode){
+		newNode->next = head;
+		head = newNode;
 		size++;
 		if (size == 1)
 			rear = node;
@@ -34,17 +34,76 @@ public:
 			addFirst(newNode);
 			return;
 		}
+		int i = 0;
+		ADTNode<Type>* pPre = nullptr;
+		newNode->next = head;
+		while (newNode->next != nullptr && i < index){
+			pPre = newNode;
+			newNode = newNode->next;
+		}
+		pPre->next = newNode;
+		size++;
 	}
 	void addLast(ADTNode* newNode){
-
+		rear->next = newNode;
+		newNode->next = nullptr;
+		rear = newNode;
+		size++;
+		if (size == 1)
+			head = newNode;
 	}
-	void removeFirst() :
-	void remove(ADT);
-	void removeLast();
-	ADTNode get(int index);
-	Bool find(ADT);
-	Int size();
-	Void empty();
+	void removeFirst(){
+		if (size < 1)
+			return;
+		ADTNode<Type>* pLoc = head;
+		head = head->next;
+		delete pLoc;
+		size--;
+		if (size == 1)
+			rear = head;
+	}
+	void remove(int index){
+		if (index >= size){
+			return;
+		}
+		if (index == 0){
+			removeFirst();
+			return;
+		}
+		int i = 0;
+		ADTNode<Type>* pLoc = head;
+		ADTNode<Type>* pPre = nullptr;
+		while (pLoc->next != nullptr && i < index){
+			pPre = pLoc;
+			pLoc = pLoc->next;
+		}
+		pPre->next = pLoc->next;
+		if (pPre->next == nullptr)
+			rear = pPre;
+		delete pLoc;
+		size--;
+	}
+	ADTNode* get(int index){
+		if (index >= size || index < 0){
+			return;
+		}
+		ADTNode<Type>* pLoc = head;
+		int i = 0;
+		while (pLoc->next != nullptr && i < index){
+			pLoc = pLoc->next;
+		}
+		return pLoc;
+	}
+	bool find(ADT);
+	int getSize(){
+		return size;
+	}
+	void empty(){
+		int s = size;
+		for (int i = 0; i < s; i++){
+			removeFirst();
+		}
+	}
 
 };
 
