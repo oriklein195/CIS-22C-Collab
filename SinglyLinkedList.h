@@ -94,7 +94,9 @@ public:
 		}
 		return pLoc;
 	}
-	bool find(ADT);
+	bool find(ADTNode* node){
+
+	}
 	int getSize(){
 		return size;
 	}
