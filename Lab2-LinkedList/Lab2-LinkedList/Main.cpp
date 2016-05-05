@@ -24,7 +24,7 @@ int main(){
 	while (!s1.isEmpty()){
 		cout << s1.pop() << ", ";
 	}
-	cout << "done!\n";
+	cout << "done!\n\n";
 
 	cout << "Testing Stack of strings:\n";
 
@@ -40,7 +40,7 @@ int main(){
 	while (!s2.isEmpty()){
 		cout << s2.pop() << ", ";
 	}
-	cout << "done!\n";
+	cout << "done!\n\n";
 
 	cout << "Testing empty Stack of doubles:\n";
 
@@ -48,7 +48,7 @@ int main(){
 	while (!s3.isEmpty()){
 		cout << s3.pop() << ", ";
 	}
-	cout << "done!\n";
+	cout << "done!\n\n";
 
 	cout << "Testing Queue of ints:\n";
 
@@ -60,7 +60,7 @@ int main(){
 	while (!q1.isEmpty()){
 		cout << q1.dequeue() << ", ";
 	}
-	cout << "done!\n";
+	cout << "done!\n\n";
 
 	cout << "Testing Queue of Dollars:\n";
 
@@ -74,9 +74,9 @@ int main(){
 	q2.enqueue(Dollar(5, 0));
 
 	while (!q2.isEmpty()){
-		cout << q2.dequeue();
+		cout << q2.dequeue() << ", ";
 	}
-	cout << "done!\n";
+	cout << "done!\n\n";
 
 	cout << "Testing Stack of Dollars:\n";
 
@@ -92,9 +92,9 @@ int main(){
 	s4.push(q2.dequeue());
 
 	while (!s4.isEmpty()){
-		cout << s4.pop();
+		cout << s4.pop() << ", ";
 	}
-	cout << "done!\n";
+	cout << "done!\n\n";
 
 	cout << "Testing Stack of Yen:\n";
 
@@ -107,9 +107,9 @@ int main(){
 	s5.push(y3);
 
 	while (!s5.isEmpty()){
-		cout << s5.pop();
+		cout << s5.pop() << ", ";
 	}
-	cout << "done!\n";
+	cout << "done!\n\n";
 
 	cout << "Testing Queue of Yen:\n";
 	Queue<Yen> q3 = Queue<Yen>();
@@ -119,10 +119,21 @@ int main(){
 
 
 	while (!q3.isEmpty()){
-		cout << q3.dequeue();
+		cout << q3.dequeue() << ", ";
 	}
-	cout << "done!\n";
+	cout << "done!\n\n";
 
+	cout << "Testing Queue of Currency Pointers:\n";
+
+	Queue<Currency*> q4 = Queue<Currency*>();
+	q4.enqueue(new Yen(1, 55));
+	q4.enqueue(new Dollar(66, 72));
+	q4.enqueue(new Euro(4, 88));
+
+	while (!q4.isEmpty()){
+		cout << *(q4.dequeue()) << ", ";
+	}
+	cout << "done!\n\n";
 	system("pause");
 	return 0;
 }

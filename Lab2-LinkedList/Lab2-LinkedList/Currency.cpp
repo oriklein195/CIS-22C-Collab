@@ -57,7 +57,7 @@ istream& operator>> (istream& is, Currency& c){
 	return is;
 }
 ostream& operator<<(ostream& os, const Currency& c){
-	os << c.wholeVal << " " << c.wholeName << " " << c.fracVal << " " << c.fracName << endl;
+	os << c.wholeVal << " " << c.wholeName << " " << c.fracVal << " " << c.fracName;
 	return os;
 }
 double Currency::getValue() const{
