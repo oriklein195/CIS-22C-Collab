@@ -36,5 +36,37 @@ public:
 		operands = Stack<int>();
 		operators = Stack<char>();
 	}
+	int evaluate(){
+		for (int i = 0; i < size; i++){
+			char c = expression[i];
+			switch (c){
+			case '0':case '1':case '2':case '3':case '4':case '5':case '6':case '7':case '8':case '9':
+				operands.push(c - '0');
+				break;
+			case '(':
+				operators.push(c);
+				break;
+			case '+': case '-': case '*': case '/':
+				if (operators.isEmpty())
+					operators.push(c);
+				else if (precedence(c) > precedence(operators.peek()))
+					operators.push(c);
+				else {
+					while (!operators.isEmpty() && precedence(c) <= precedence(operators.peek()))
+						execute();
+					operators.push(c);
+				}
+				break;
+			case ')':
+				while (operators.peek() != '(')
+					execute();
+				operators.pop();
+				break;
+			}
+		}
+		while (!operators.isEmpty())
+			execute();
+		return operands.pop();
+	}
 };
 #endif // !INFIXCALC_H
