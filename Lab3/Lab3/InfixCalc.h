@@ -9,6 +9,31 @@ private:
 	Stack<int> operands;
 	Stack<char> operators;
 	char *expression;
+	void execute(){
+		int val2 = operands.pop();
+		int val1 = operands.pop();
+		char c = operators.pop();
+		switch (c){
+		case '+':
+			operands.push(val1 + val2);
+			break;
+		case '-':
+			operands.push(val1 - val2);
+			break;
+		case '*':
+			operands.push(val1 * val2);
+			break;
+		case '/':
+			if (val2 != 0)
+				operands.push(val1 / val2);
+			else
+				throw "Can't divide by 0";
+			break;
+		default:
+			throw "Invalid operator: '" + c + '\'';
+			break;
+		}
+	}
 	int precedence(char c){
 		switch (c){
 		case '(': case ')':
