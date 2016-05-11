@@ -1,5 +1,5 @@
 #include "Stack.h"
-
+#include <string>
 #ifndef INFIXCALC_H
 #define INFIXCALC_H
 
@@ -8,11 +8,19 @@ private:
 	int size;
 	Stack<int> operands;
 	Stack<char> operators;
-	char *expression;
+	string expression;
 	void execute(){
-		int val2 = operands.pop();
-		int val1 = operands.pop();
-		char c = operators.pop();
+		int val1, val2;
+		char c;
+		try {
+			val2 = operands.pop();
+			val1 = operands.pop();
+			c = operators.pop();
+		}
+		catch (string s){
+			throw s;
+		}
+		
 		switch (c){
 		case '+':
 			operands.push(val1 + val2);
@@ -50,20 +58,19 @@ private:
 public:
 	InfixCalc(){
 		size = 0;
-		expression = nullptr;
+		expression = "";
 		operands = Stack<int>();
 		operators = Stack<char>();
 	}
-	InfixCalc(int s, char* ex){
+	InfixCalc(int s, string ex){
 		size = s;
-		for (int i = 0; i < size; i++)
-			expression[i] = ex[i];
+		expression = ex;
 		operands = Stack<int>();
 		operators = Stack<char>();
 	}
 	int evaluate(){
 		for (int i = 0; i < size; i++){
-			char c = expression[i];
+			char c = expression.at(i);
 			switch (c){
 			case '0':case '1':case '2':case '3':case '4':case '5':case '6':case '7':case '8':case '9':
 				operands.push(c - '0');
@@ -92,6 +99,39 @@ public:
 		while (!operators.isEmpty())
 			execute();
 		return operands.pop();
+	}
+	bool checkSyntax(){
+		int pCount = 0;
+		bool nextIsVal = true;
+		for (int i = 0; i < size; i++){
+			char c = expression.at(i);
+			switch (c){
+			case '(':
+				pCount++;
+				break;
+			case ')':
+				if (pCount <= 0)
+					return false;
+				break;
+			case '0':case '1':case '2':case '3':case '4':case '5':case '6':case '7':case '8':case '9':
+				if (nextIsVal)
+					nextIsVal = false;
+				else
+					return false;
+				break;
+			case '+': case '-': case '*': case '/':
+				if (!nextIsVal)
+					nextIsVal = true;
+				else
+					return false;
+				break;
+			default:
+				return false;
+				break;
+			}
+		}
+		return true;
+
 	}
 };
 #endif // !INFIXCALC_H
