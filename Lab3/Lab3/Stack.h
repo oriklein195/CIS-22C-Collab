@@ -17,11 +17,17 @@ public:
 	returns the last data type in your stack and removes it from there.
 	*/
 	Type pop(){
+		if (isEmpty()){
+			throw "Can not pop an empty stack...";
+		}
 		Type data = get(0);
 		removeFirst();
 		return data;
 	};
 	Type peek(){
+		if (isEmpty()){
+			throw "Can not pop an empty stack...";
+		}
 		return get(0);
 	}
 
