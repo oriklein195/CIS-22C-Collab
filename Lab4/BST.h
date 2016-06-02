@@ -2,6 +2,9 @@
 #define BST_H
 
 #include "ADTNode.h"
+#include<iostream>
+#include<fstream>
+#include<string>
 
 template <class Type>
 class BST{
@@ -38,6 +41,101 @@ public:
 			}
 		}
 		size++;
+		return subRoot;
+	}
+
+	/**
+	This algorithm deletes a node from an AVL tree and rebalances if necessary
+	@Pre:	root is a pointer to a [sub]tree
+			data is the key of node to be deleted
+			success is a reference to a boolean variable
+	@Post:	node deleted if found, tree unchanged if not.
+			success set true or false
+	@return:	pointer to root of [potential] new subtree
+	*/
+	ADTNode<Type>* AVLDelete(ADTNode<Type>* subRoot, Type data, bool success){
+		if (subRoot == nullptr){
+			success = false;
+			return nullptr;
+		}
+		if (data < subRoot->getData()){
+			int originalHeight = getHeight(root);
+			subRoot->left = AVLDelete(subRoot->left, data, success);
+			if (originalHeight > getHeight(root))
+				subRoot = deleteLeftBalance(subRoot);
+		}
+		else if (data > subRoot->getData()) {
+			int originalHeight = getHeight(root);
+			subRoot->right = AVLDelete(subRoot->right, data, success);
+			if (originalHeight > getHeight(root))
+				subRoot = deleteRightBalance(subRoot);
+		}
+		else {
+			ADTNode<Type>* newRoot = subRoot;
+			ADTNode<Type>* tempNode = subRoot->left;
+			if (subRoot->right == nullptr){
+				success = true;
+				return subRoot->left;
+			}
+			else if (subRoot->left == nullptr){
+				success = true;
+				return subRoot->right;
+			}
+			else {
+				while (tempNode->right != nullptr)
+					tempRoot = tempNode->right;
+				Type largest = tempNode->getData();
+				subRoot->setData(largest);
+				int originalHeight = getHeight(root);
+				subRoot->left = AVLDelete(subRoot->left, largest, success);
+				if (originalHeight > getHeight(root))
+					subRoot = deleteRightBalance(subRoot);
+			}
+		}
+		return subRoot;
+	}
+
+	/**
+	The [sub]tree is shorter after a deletion on the left branch.
+	If necessary, balance the tree by rotating.
+	@Pre:	tree is shorter
+	@post	balance restored
+	@return:	new root
+	*/
+	ADTNode<Type>* deleteRightBalance(ADTNode<Type>* subRoot){
+		if (getHeight(subRoot->left) + 1 < getHeight(subRoot->right)){
+			ADTNode<Type>* rightOfRight = subRoot->right;
+			if (getHeight(rightOfRight->left) > getHeight(rightOfRight->right) + 1){
+				ADTNode<Type>* leftOfRight = rightOfRight->left;
+				subRoot->right = rotateRight(rightOfRight);
+				subRoot = rotateLeft(subRoot);
+			}
+			else {
+				subRoot = rotateLeft(subRoot);
+			}
+		}
+		return subRoot;
+	}
+
+	/**
+	The [sub]tree is shorter after a deletion on the right branch.
+	If necessary, balance the tree by rotating.
+	@Pre:	tree is shorter
+	@post	balance restored
+	@return:	new root
+	*/
+	ADTNode<Type>* deleteLeftBalance(ADTNode<Type>* subRoot){
+		if (getHeight(subRoot->right) + 1 < getHeight(subRoot->left)){
+			ADTNode<Type>* leftOfLeft = subRoot->left;
+			if (getHeight(leftOfLeft->right) > getHeight(leftOfLeft->left) + 1){
+				ADTNode<Type>* RightOfLeft = leftOfLeft->right;
+				subRoot->left = rotateLeft(leftOfLeft);
+				subRoot = rotateRight(subRoot);
+			}
+			else {
+				subRoot = rotateRight(subRoot);
+			}
+		}
 		return subRoot;
 	}
 
@@ -88,7 +186,7 @@ public:
 	@pre:	root points to tree to be rotated
 	@post:	node rotated and root updated
 	*/
-	ADTNode<Type>* rotateRight(ADTNode<Type>* subRoot){
+	ADTNode<Type>* rotateLeft(ADTNode<Type>* subRoot){
 		ADTNode<Type>* tempRoot = subRoot->left;
 		subRoot->left = subRoot->left->right;
 		subRoot = tempRoot;
@@ -111,6 +209,17 @@ public:
 			return r + 1;
 		}
 		return l + 1;
+	}
+
+	/*!!!!!!!!**TOMER FILL THIS IN**!!!!!!!!!!*/
+
+	/**
+	This algorithm will put all data on the file in order requested
+	@Pre:	outFile is 
+			mode is set to 1 (pre-order), 2 (in-order), 3 (post-order), 4 (breadth-first)
+	*/
+	void writeToFile(int mode, ofstream& outFile){
+
 	}
 
 	bool isEmpty(){
