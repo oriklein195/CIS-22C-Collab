@@ -13,6 +13,7 @@ public:
 		right = nullptr;
 		left = nullptr;
 	}
+	void setData(Type d){ data = d; }
 	Type getData(){ return data; }
 };
 #endif // !ADTNODE_H
