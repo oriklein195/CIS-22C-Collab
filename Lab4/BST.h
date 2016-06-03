@@ -211,17 +211,51 @@ public:
 		return l + 1;
 	}
 
-	/*!!!!!!!!**TOMER FILL THIS IN**!!!!!!!!!!*/
-
 	/**
 	This algorithm will put all data on the file in order requested
-	@Pre:	outFile is 
-			mode is set to 1 (pre-order), 2 (in-order), 3 (post-order), 4 (breadth-first)
+	@Pre:	outFile exists and is able to be opened
+		mode is set to 1 (pre-order), 2 (in-order), 3 (post-order), 4 (breadth-first)
+		fileName is the correct name of the file to be opened
 	*/
-	void writeToFile(int mode, ofstream& outFile){
-
+	void writeToFile(int mode, ofstream& outFile, string fileName){
+		if (mode == 1){
+			preOrderDisplay(root, outFile, fileName);
+		} else if (mode == 2){
+			inOrderDisplay(root, outFile, fileName);
+		} else if (mode == 3){
+			postOrderDisplay(root, outFile, fileName);
+		} else if (mode == 4){
+			breadthFirstDisplay(root, outFile, fileName);
+		}
 	}
 
+	void preOrderDisplay(ADTNode<Type>* subRoot, ofstream& outFile, string fileName){
+		outFile.open(fileName);
+		outFile << subRoot->getData();
+		outFile.close();
+		preOrderDisplay(subRoot->left, outFile, fileName);
+		preOrderDisplay(subRoot->right, outFile, fileName);
+	}
+	
+	void inOrderDisplay(ADTNode<Type>* subRoot, ofstream& outFile, string fileName){
+		inOrderDisplay(subRoot->left, outFile, fileName);
+		outFile.open(fileName);
+		outFile << subRoot->getData();
+		outFile.close();
+		inOrderDisplay(subRoot->right, outFile, fileName);
+	}
+	
+	void postOrderDisplay(ADTNode<Type>* subRoot, ofstream& outFile, string fileName){
+		postOrderDisplay(subRoot->left, outFile, fileName);
+		postOrderDisplay(subRoot->right, outFile, fileName);
+		outFile.open(fileName);
+		outFile << subRoot->getData();
+		outFile.close();
+	}
+	
+	void breadthFirstDisplay(ADTNode<Type>* subRoot, ofstream& outFile, string fileName){
+		
+	}
 	bool isEmpty(){
 		return !size;
 	}
