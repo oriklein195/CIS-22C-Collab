@@ -9,11 +9,12 @@
 template <class Type>
 class BST{
 private:
-	ADTNode<Type>* root = nullptr;
-	int size = 0;
+	ADTNode<Type>* root;
+	int size;
 public:
 	BST(){
-
+		root = nullptr;
+		size = 0;
 	}
 	/**
 	Use recursion to insert a node into an AVL tree
