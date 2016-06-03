@@ -21,8 +21,8 @@ int main(){
   }
   ofstream nameOutput;
   ofstream dateOutput;
-  namesTree.display(3, nameOutput, "namesList.txt");
-  datesTree.display(4, dateOutput, "datesList.txt");
+  namesTree.display(3, nameOutput, "SortedNames.txt");
+  datesTree.display(4, dateOutput, "SortedDates.txt");
 
   return 0;
 }
