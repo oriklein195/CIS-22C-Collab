@@ -16,6 +16,13 @@ public:
 		root = nullptr;
 		size = 0;
 	}
+
+	ADTNode<Type>* getRoot(){
+		return root;
+	}
+	void insert(Type data){
+		root = insert(root, data);
+	}
 	/**
 	Use recursion to insert a node into an AVL tree
 	@Pre: 	root is pointer to first node in AVL tree/subtree
@@ -30,7 +37,7 @@ public:
 			size++;
 			return subRoot;
 		} if (data < subRoot->getData()){
-			subRoot->left = (subRoot->left, data);
+			subRoot->left = insert(subRoot->left, data);
 			if (getHeight(subRoot->left) > getHeight(subRoot->right) + 1){
 				// leftbalance(subRoot)
 			}
@@ -231,27 +238,33 @@ public:
 	}
 
 	void preOrderDisplay(ADTNode<Type>* subRoot, ofstream& outFile, string fileName){
-		outFile.open(fileName);
-		outFile << subRoot->getData();
-		outFile.close();
-		preOrderDisplay(subRoot->left, outFile, fileName);
-		preOrderDisplay(subRoot->right, outFile, fileName);
+		if (subRoot != nullptr){
+			outFile.open(fileName);
+			outFile << subRoot->getData();
+			outFile.close();
+			preOrderDisplay(subRoot->left, outFile, fileName);
+			preOrderDisplay(subRoot->right, outFile, fileName);
+		}
 	}
 	
 	void inOrderDisplay(ADTNode<Type>* subRoot, ofstream& outFile, string fileName){
-		inOrderDisplay(subRoot->left, outFile, fileName);
-		outFile.open(fileName);
-		outFile << subRoot->getData();
-		outFile.close();
-		inOrderDisplay(subRoot->right, outFile, fileName);
+		if (subRoot != nullptr){
+			inOrderDisplay(subRoot->left, outFile, fileName);
+			outFile.open(fileName);
+			outFile << subRoot->getData();
+			outFile.close();
+			inOrderDisplay(subRoot->right, outFile, fileName);
+		}
 	}
 	
 	void postOrderDisplay(ADTNode<Type>* subRoot, ofstream& outFile, string fileName){
-		postOrderDisplay(subRoot->left, outFile, fileName);
-		postOrderDisplay(subRoot->right, outFile, fileName);
-		outFile.open(fileName);
-		outFile << subRoot->getData();
-		outFile.close();
+		if (subRoot != nullptr){
+			postOrderDisplay(subRoot->left, outFile, fileName);
+			postOrderDisplay(subRoot->right, outFile, fileName);
+			outFile.open(fileName);
+			outFile << subRoot->getData();
+			outFile.close();
+		}
 	}
 	
 	void breadthFirstDisplay(ADTNode<Type>* subRoot, ofstream& outFile, string fileName){
@@ -283,6 +296,5 @@ public:
 	}
 
 };
-
 
 #endif // !BST_H
