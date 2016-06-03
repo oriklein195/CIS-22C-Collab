@@ -254,7 +254,28 @@ public:
 	}
 	
 	void breadthFirstDisplay(ADTNode<Type>* subRoot, ofstream& outFile, string fileName){
-		
+		ADTNode<Type>* currentNode = subRoot;
+		ADTNode<Type>** queue = new ADTNode<Type>*[size];
+		int enqueue = 0;
+		int dequeue = 0;
+		while(currentNode != nullptr){
+			outFile.open(fileName);
+			outFile << subRoot->getData();
+			outFile.close();
+			if (subRoot->left != nullptr){
+				queue[enqueue] = subRoot->left;
+				enqueue++;
+			} if (subRoot->right != nullptr){
+				queue[enqueue] = subRoot->right;
+				enqueue++;
+			} if (dequeue != enqueue){
+				currentNode = queue[dequeue];
+				dequeue++;
+			} else {
+				currentNode = nullptr;
+			}
+		}
+		delete queue;
 	}
 	bool isEmpty(){
 		return !size;
