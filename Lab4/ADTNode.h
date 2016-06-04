@@ -1,8 +1,7 @@
 #ifndef ADTNODE_H
 #define ADTNODE_H
 
-
-; template<class Type>
+template<class Type>
 class ADTNode{
 private:
 	Type data;
