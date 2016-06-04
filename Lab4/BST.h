@@ -16,13 +16,10 @@ public:
 		root = nullptr;
 		size = 0;
 	}
-
-	ADTNode<Type>* getRoot(){
-		return root;
-	}
-	void insert(Type data){
-		root = insert(root, data);
-	}
+    ADTNode<Type>* getRoot(){return root;};
+    void insert(Type data){
+        root = insert(root, data);
+    }
 	/**
 	Use recursion to insert a node into an AVL tree
 	@Pre: 	root is pointer to first node in AVL tree/subtree
@@ -31,7 +28,7 @@ public:
 	@return:	root returned recursively up the tree
 	*/
 	ADTNode<Type>* insert(ADTNode<Type>* subRoot, Type data){
-		ADTNode<Type>* newNode = new ADTNode<Type>(data);
+        ADTNode<Type>* newNode = new ADTNode<Type>(data);
 		if (subRoot == nullptr){
 			subRoot = newNode;
 			size++;
@@ -39,13 +36,15 @@ public:
 		} if (data < subRoot->getData()){
 			subRoot->left = insert(subRoot->left, data);
 			if (getHeight(subRoot->left) > getHeight(subRoot->right) + 1){
-				// leftbalance(subRoot)
+                cout << "Need leftBalance when inserting " << data << " at root " << subRoot->getData() << endl;
+                subRoot = leftBalance(subRoot);
 			}
 		}
 		else {
 			subRoot->right = insert(subRoot->right, data);
 			if (getHeight(subRoot->right) > getHeight(subRoot->left) + 1){
-				// rightbalance(subRoot)
+                cout << "Need rightBalance when inserting " << data << " at root " << subRoot->getData() << endl;
+                subRoot = rightBalance(subRoot);
 			}
 		}
 		size++;
@@ -91,7 +90,7 @@ public:
 			}
 			else {
 				while (tempNode->right != nullptr)
-					tempRoot = tempNode->right;
+                    tempNode = tempNode->right;
 				Type largest = tempNode->getData();
 				subRoot->setData(largest);
 				int originalHeight = getHeight(root);
@@ -153,10 +152,10 @@ public:
 	@post:	root has been updated (if necessary)
 	*/
 	ADTNode<Type>* leftBalance(ADTNode<Type>* subRoot){
-		if (getHeight(subRoot->left) > getHeight(subRoot->right) + 1){
+		if (getHeight(subRoot->left->left) > getHeight(subRoot->left->right)){
 			subRoot = rotateRight(subRoot);
 		} else {
-			subRoot->left = (subRoot->left);
+			subRoot->left = rotateLeft(subRoot->left);
 			subRoot = rotateRight(subRoot);
 		}
 		return subRoot;
@@ -168,11 +167,11 @@ public:
 	@post:	root has been updated (if necessary)
 	*/
 	ADTNode<Type>* rightBalance(ADTNode<Type>* subRoot){
-		if (getHeight(subRoot->right) > getHeight(subRoot->left) + 1){
+		if (getHeight(subRoot->right->right) > getHeight(subRoot->right->left)){
 			subRoot = rotateLeft(subRoot);
 		}
 		else {
-			subRoot->right = (subRoot->right);
+			subRoot->right = rotateRight(subRoot->right);
 			subRoot = rotateLeft(subRoot);
 		}
 		return subRoot;
@@ -182,11 +181,11 @@ public:
 	@pre:	root points to tree to be rotated
 	@post:	node rotated and root updated
 	*/
-	ADTNode<Type>* rotateRight(ADTNode<Type>* subRoot){
+	ADTNode<Type>* rotateLeft(ADTNode<Type>* subRoot){
 		ADTNode<Type>* tempRoot = subRoot->right;
 		subRoot->right = subRoot->right->left;
-		subRoot = tempRoot;
-		return subRoot;
+        tempRoot->left = subRoot;
+        return tempRoot;
 	}
 
 	/**
@@ -194,14 +193,17 @@ public:
 	@pre:	root points to tree to be rotated
 	@post:	node rotated and root updated
 	*/
-	ADTNode<Type>* rotateLeft(ADTNode<Type>* subRoot){
+	ADTNode<Type>* rotateRight(ADTNode<Type>* subRoot){
 		ADTNode<Type>* tempRoot = subRoot->left;
 		subRoot->left = subRoot->left->right;
-		subRoot = tempRoot;
-		return subRoot;
+        tempRoot->right = subRoot;
+		return tempRoot;
 	}
 
 	int getHeight(ADTNode<Type>* subRoot){
+        if (subRoot == nullptr){
+            return 0;
+        }
 		if (subRoot->left == nullptr && subRoot->right == nullptr){
 			return 1;
 		}
@@ -238,34 +240,35 @@ public:
 	}
 
 	void preOrderDisplay(ADTNode<Type>* subRoot, ofstream& outFile, string fileName){
-		if (subRoot != nullptr){
-			outFile.open(fileName);
-			outFile << subRoot->getData();
-			outFile.close();
-			preOrderDisplay(subRoot->left, outFile, fileName);
-			preOrderDisplay(subRoot->right, outFile, fileName);
-		}
+        if (subRoot != nullptr){
+            outFile.open(fileName);
+            outFile << subRoot->getData();
+            outFile.close();
+            preOrderDisplay(subRoot->left, outFile, fileName);
+            preOrderDisplay(subRoot->right, outFile, fileName);
+        }
 	}
 	
 	void inOrderDisplay(ADTNode<Type>* subRoot, ofstream& outFile, string fileName){
 		if (subRoot != nullptr){
-			inOrderDisplay(subRoot->left, outFile, fileName);
-			outFile.open(fileName);
-			outFile << subRoot->getData();
-			outFile.close();
-			inOrderDisplay(subRoot->right, outFile, fileName);
-		}
-	}
+            inOrderDisplay(subRoot->left, outFile, fileName);
+            outFile.open(fileName);
+            outFile << subRoot->getData();
+            outFile.close();
+            inOrderDisplay(subRoot->right, outFile, fileName);
+        }
+    }
 	
 	void postOrderDisplay(ADTNode<Type>* subRoot, ofstream& outFile, string fileName){
-		if (subRoot != nullptr){
-			postOrderDisplay(subRoot->left, outFile, fileName);
-			postOrderDisplay(subRoot->right, outFile, fileName);
-			outFile.open(fileName);
-			outFile << subRoot->getData();
-			outFile.close();
-		}
-	}
+        if (subRoot != nullptr){
+            postOrderDisplay(subRoot->left, outFile, fileName);
+            postOrderDisplay(subRoot->right, outFile, fileName);
+            outFile.open(fileName);
+            outFile << subRoot->getData();
+            outFile.close();
+
+        }
+    }
 	
 	void breadthFirstDisplay(ADTNode<Type>* subRoot, ofstream& outFile, string fileName){
 		ADTNode<Type>* currentNode = subRoot;
@@ -273,14 +276,14 @@ public:
 		int enqueue = 0;
 		int dequeue = 0;
 		while(currentNode != nullptr){
-			outFile.open(fileName);
-			outFile << subRoot->getData();
-			outFile.close();
-			if (subRoot->left != nullptr){
-				queue[enqueue] = subRoot->left;
+            outFile.open(fileName);
+            outFile << currentNode->getData();
+            outFile.close();
+			if (currentNode->left != nullptr){
+				queue[enqueue] = currentNode->left;
 				enqueue++;
-			} if (subRoot->right != nullptr){
-				queue[enqueue] = subRoot->right;
+			} if (currentNode->right != nullptr){
+				queue[enqueue] = currentNode->right;
 				enqueue++;
 			} if (dequeue != enqueue){
 				currentNode = queue[dequeue];
@@ -296,5 +299,6 @@ public:
 	}
 
 };
+
 
 #endif // !BST_H
