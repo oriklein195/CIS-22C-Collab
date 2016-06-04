@@ -6,32 +6,33 @@
 using namespace std;
 
 int main(){
-  BST<Person> namesTree;
-  BST<Person> datesTree;
-  ifstream myFile;
-  string name, year, month, day;
-  myFile.open("OriginalList.txt", ios::in);
-  if (myFile.is_open())
-  {
-  while (getline(myFile, name, ' '))
+    BST<Person> namesTree;
+    BST<Person> datesTree;
+    
+    ifstream inFile("OriginalList.txt");
+    if (inFile.is_open())
     {
-		getline(myFile, month, ' ');
-		getline(myFile, day, ' ');
-		getline(myFile, year, ' ');
-      Person p = Person(true, name, year, month, day);
-      namesTree.insert(p);
-      Person p2 = Person(false, name, year, month, day);
-      datesTree.insert(p2);
+        string name, year, month, day;
+        while (getline(inFile, name, ' '))
+        {
+            getline(inFile, month, ' ');
+            getline(inFile, day, ' ');
+            getline(inFile, year, ' ');
+            Person p = Person(true, name, year, month, day);
+            namesTree.insert(p);
+            Person p2 = Person(false, name, year, month, day);
+            datesTree.insert(p2);
+            cout << "hello" << month << p;
+        }
+        inFile.close();
     }
-    myFile.close();
-  }
-  cout << namesTree.getRoot()->getData();
-  ofstream nameOutput;
-  ofstream dateOutput;
-  namesTree.writeToFile(2, nameOutput, "SortedNames.txt");
-  datesTree.writeToFile(4, dateOutput, "SortedDates.txt");
-
- 
-  system("pause");
-  return 0;
+    Person p = Person(true, "Ori", "1998", "01", "01");
+    namesTree.insert(p);
+    Person p2 = Person(false, "Ori", "1998", "01", "01");
+    datesTree.insert(p2);
+    ofstream nameOutput;
+    ofstream dateOutput;
+    namesTree.writeToFile(3, nameOutput, "SortedNames.txt");
+    datesTree.writeToFile(4, dateOutput, "SortedDates.txt");
+    return 0;
 }
