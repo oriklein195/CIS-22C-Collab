@@ -2,14 +2,21 @@
 #include <fstream>
 
 using namespace std;
-
+/*
+printArray
+- prints an array of integers.
+**/
 void printArray(int arr[], int length){
 	for (int i = 0; i < length; i++)
 		cout << arr[i] << ", ";
 	cout << endl;
 	return;
 };
+/*
+quickSort
+@pre
 
+**/
 void quickSort(int arr[], int left, int right){
 	int i = left;
 	int j = right;
@@ -50,6 +57,43 @@ void insertSort(int arr[], int length){
 	}
 	return;
 };
+void merge(int arr[], int size, int low, int middle, int high){
+	int* temp = new int[size];
+	for (int i = low; i <= high; ++i){
+		temp[i] = arr[i];
+	}
+	int i = low;
+	int j = middle + 1;
+	int k = low;
+
+	while (i <= middle && j <= high){
+		if (temp[i] < temp[j]){
+			arr[k] = temp[i];
+			++i;
+		}
+		else{
+			arr[k] = temp[j];
+			++j;
+		}
+		while (i <= middle){
+			arr[k] = temp[i];
+			++i;
+			++k;
+		}
+	}
+	printArray(arr, size);
+	delete temp;
+	return;
+};
+void mergeSort(int arr[],int size, int low, int high){
+	if (low < high){
+		int middle = (high + low) / 2;
+		mergeSort(arr, size, low, middle);
+		mergeSort(arr, size, middle + 1, high);
+		merge(arr, size, low, middle, high);
+	}
+	return;
+};
 
 int main(){
 	const int SORT_MAX_SIZE = 32;
@@ -64,13 +108,13 @@ int main(){
 	int* userArr = new int[userSize];
 
 	for (int i = 0; i < userSize; i++){
-		cout << "input a number for element number " << i + 1 << " in the array" << endl;
+		cout << "input a number for element number " << i + 1 << " in the array(between 0 and 100)" << endl;
 		cin >> userArr[i];
 	}
 
 	printArray(userArr, userSize);
-	quickSort(userArr, 0, userSize - 1);
-
+	insertSort(userArr, userSize);
+	
 	delete userArr;
 
 	system("pause");
