@@ -123,54 +123,54 @@ main
 - the other will be popluted by the same data three times
 **/
 int main(){
-	int userSize = 0, h = 0;
-	ofstream outfile;
-	outfile.open("SortedArrays.txt");
+	int userSize = 0, h = 0;			//variable for the number of element the user wants, and a counter.
+	ofstream outfile;					//output object for file io
+	outfile.open("SortedArrays.txt");	//opening the file for file io
 
 	cout << "please enter the number of elements you would like" << endl;
 	do {
-		cin >> userSize;
-		if (userSize > SORT_MAX_SIZE)
-			cout << "too many elements try again please" << endl;
-	} while (userSize > SORT_MAX_SIZE);
+		cin >> userSize;								//ask user how many elements they would like
+		if (userSize > SORT_MAX_SIZE || userSize < 0)	//check to make sure the number of elements is not negative or lrger than max
+			cout <<"invald try again please" << endl;	
+	} while (userSize > SORT_MAX_SIZE || userSize < 0);	//loop until input is valid
 
-	int* userArr = new int[userSize];
-	int* temp = new int[userSize];
+	int* userArr = new int[userSize];					//dynamicly sized array that will have userinput
+	int* temp = new int[userSize];						//temp array that will be sorted and then repopulated with unsorted data
 
 	for (int i = 0; i < userSize; i++){
 		cout << "input a number for element number " << i + 1 << " in the array" << endl;
 		cin >> userArr[i];
-	}
+	}													//loop for user input
 
 	outfile << "Now printing unsorted" << endl;
-	cout << "Now printing unsorted" << endl;
-	printArray(userArr, userSize, outfile);
+	cout << "Now printing unsorted:" << endl;
+	printArray(userArr, userSize, outfile);				//print the unsorted array to standard and file io
 
-	while (h < 3){
+	while (h < 3){										//loop to sort temp and then replace temp with the unsorted data repeat twice for other algorithms
 		for (int g = 0; g < userSize; g++){
 			temp[g] = userArr[g];
-		}
+		}												//loop to populate temp
 		if (h == 0){
-			cout << "Now sorting with insertion sort" << endl;
-			outfile << "Now sorting with insertion sort" << endl;
-			insertSort(temp, userSize, outfile);
+			cout << "Now sorting with insertion sort:" << endl;
+			outfile << "Now sorting with insertion sort:" << endl;
+			insertSort(temp, userSize, outfile);		//sort temp using the insertion logic
 		}
 		if (h == 1){
-			cout << "Now sorting with quick sort" << endl;
-			outfile << "Now sorting with quick sort" << endl;
-			quickSort(temp, 0, userSize - 1, userSize, outfile);
+			cout << "Now sorting with quick sort:" << endl;
+			outfile << "Now sorting with quick sort:" << endl;
+			quickSort(temp, 0, userSize - 1, userSize, outfile);	//sort temp using the quick sort logic
 		}
 		if (h == 2){
-			cout << "Now sorting with merge sort" << endl;
-			outfile << "Now sorting with merge sort" << endl;
-			mergeSort(temp, userSize, 0, userSize - 1, outfile);
+			cout << "Now sorting with merge sort:" << endl;
+			outfile << "Now sorting with merge sort:" << endl;
+			mergeSort(temp, userSize, 0, userSize - 1, outfile);	//sort temp using the merge sort logic
 		}
 		h++;
 	}
 
 	
-	delete userArr, temp;
-	outfile.close();
+	delete userArr, temp;											//delete the objects in the heap
+	outfile.close();												//close output file
 
 	system("pause");
 	return 0;
